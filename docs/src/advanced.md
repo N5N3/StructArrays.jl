@@ -66,7 +66,7 @@ StructArrays provides a function `StructArrays.append!!(dest, src)` (unexported)
 
 `StructArrays.append!!` works like `append!(dest, src)` if `dest` can contain all element types in `src` iterator; i.e., it _mutates_ `dest` in-place:
 
-```julia
+```julia-repl
 julia> dest = StructVector((a=[1], b=[2]))
 1-element StructArray(::Array{Int64,1}, ::Array{Int64,1}) with eltype NamedTuple{(:a, :b),Tuple{Int64,Int64}}:
  (a = 1, b = 2)
@@ -82,7 +82,7 @@ true
 
 Unlike `append!`, `append!!` can also _widen_ element type of `dest` array:
 
-```julia
+```julia-repl
 julia> StructArrays.append!!(dest, [(a = missing, b = 6)])
 3-element StructArray(::Array{Union{Missing, Int64},1}, ::Array{Int64,1}) with eltype NamedTuple{(:a, :b),Tuple{Union{Missing, Int64},Int64}}:
  NamedTuple{(:a, :b),Tuple{Union{Missing, Int64},Int64}}((1, 2))

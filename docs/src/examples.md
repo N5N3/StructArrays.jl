@@ -1,6 +1,6 @@
 ## Example usage to store complex numbers
 
-```julia
+```julia-repl
 julia> using StructArrays, Random
 
 julia> Random.seed!(4);
@@ -24,7 +24,7 @@ julia> StructArrays.components(s) # obtain all field arrays as a named tuple
 
 Note that the same approach can be used directly from an `Array` of complex numbers:
 
-```julia
+```julia-repl
 julia> StructArray([1+im, 3-2im])
 2-element StructArray(::Array{Int64,1}, ::Array{Int64,1}) with eltype Complex{Int64}:
  1 + 1im
@@ -33,7 +33,7 @@ julia> StructArray([1+im, 3-2im])
 
 ## Example usage to store a data table
 
-```julia
+```julia-repl
 julia> t = StructArray((a = [1, 2], b = ["x", "y"]))
 2-element StructArray(::Array{Int64,1}, ::Array{String,1}) with eltype NamedTuple{(:a, :b),Tuple{Int64,String}}:
  (a = 1, b = "x")
@@ -56,7 +56,7 @@ julia> push!(t, (a = 3, b = "z"))
 
 ## Example usage with StaticArray elements
 
-```julia
+```julia-repl
 julia> using StructArrays, StaticArrays
 
 julia> x = StructArray([SVector{2}(1,2) for i = 1:5])

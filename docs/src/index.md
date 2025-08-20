@@ -46,7 +46,7 @@ StructArray(log(j+2.0*im) for j in 1:10)
 
 Another option is to create an uninitialized `StructArray` and then fill it with data. Just like in normal arrays, this is done with the `undef` syntax:
 
-```julia
+```julia-repl
 julia> s = StructArray{ComplexF64}(undef, 2, 2)
 2×2 StructArray(::Array{Float64,2}, ::Array{Float64,2}) with eltype Complex{Float64}:
  6.91646e-310+6.91646e-310im  6.91646e-310+6.91646e-310im
@@ -88,7 +88,7 @@ julia> soa.re
 
 `StructArray`s supports using custom array types. It is always possible to pass field arrays of a custom type. The "custom array of `struct`s to `struct` of custom arrays" transformation will use the `similar` method of the custom array type. This can be useful when working on the GPU for example:
 
-```julia
+```julia-repl
 julia> using StructArrays, CuArrays
 
 julia> a = CuArray(rand(Float32, 10));
@@ -126,7 +126,7 @@ julia> StructArray(c)
 
 If you already have your data in a `StructArray` with field arrays of a given format (say plain `Array`) you can change them with `replace_storage`:
 
-```julia
+```julia-repl
 julia> s = StructArray([1.0+im, 2.0-im])
 2-element StructArray(::Array{Float64,1}, ::Array{Float64,1}) with eltype Complex{Float64}:
  1.0 + 1.0im
@@ -142,7 +142,7 @@ julia> replace_storage(CuArray, s)
 
 `StructArray`s also provides a `LazyRow` wrapper for lazy row iteration. `LazyRow(t, i)` does not materialize the i-th row but returns a lazy wrapper around it on which `getproperty` does the correct thing. This is useful when the row has many fields only some of which are necessary. It also allows changing columns in place.
 
-```julia
+```julia-repl
 julia> t = StructArray((a = [1, 2], b = ["x", "y"]));
 
 julia> LazyRow(t, 2).a
@@ -159,7 +159,7 @@ julia> t
 
 To iterate in a lazy way one can simply iterate `LazyRows`:
 
-```julia
+```julia-repl
 julia> map(t -> t.b ^ t.a, LazyRows(t))
 2-element Array{String,1}:
  "x"
@@ -168,10 +168,10 @@ julia> map(t -> t.b ^ t.a, LazyRows(t))
 
 ## Applying a function on each field array
 
-```julia
+```julia-repl
 julia> struct Foo
-       a::Int
-       b::String
+           a::Int
+           b::String
        end
 
 julia> s = StructArray([Foo(11, "a"), Foo(22, "b"), Foo(33, "c"), Foo(44, "d"), Foo(55, "e")]);
