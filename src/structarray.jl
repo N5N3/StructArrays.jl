@@ -532,9 +532,9 @@ BroadcastStyle(::Type{SA}) where {SA<:StructArray} = StructArrayStyle{typeof(cst
     always_struct_broadcast(style::BroadcastStyle)
 
 Check if `style` supports struct-broadcast natively, which means:
-1) `Base.copy` is not overloaded.
-2) `Base.similar` is defined.
-3) `Base.copyto!` supports `StructArray`s as broadcasted arguments.
+1. `Base.copy` is not overloaded.
+2. `Base.similar` is defined.
+3. `Base.copyto!` supports `StructArray`s as broadcasted arguments.
 
 If any of the above conditions are not met, then this function should
 not be overloaded.
