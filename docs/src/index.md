@@ -48,12 +48,12 @@ Another option is to create an uninitialized `StructArray` and then fill it with
 
 ```julia-repl
 julia> s = StructArray{ComplexF64}(undef, 2, 2)
-2×2 StructArray(::Array{Float64,2}, ::Array{Float64,2}) with eltype Complex{Float64}:
+2×2 StructArray(::Matrix{Float64}, ::Matrix{Float64}) with eltype Complex{Float64}:
  6.91646e-310+6.91646e-310im  6.91646e-310+6.91646e-310im
  6.91646e-310+6.91646e-310im  6.91646e-310+6.91646e-310im
 
 julia> rand!(s)
-2×2 StructArray(::Array{Float64,2}, ::Array{Float64,2}) with eltype Complex{Float64}:
+2×2 StructArray(::Matrix{Float64}, ::Matrix{Float64}) with eltype Complex{Float64}:
  0.680079+0.874437im  0.625239+0.737254im
   0.92407+0.929336im  0.267358+0.804478im
 ```
@@ -111,7 +111,7 @@ julia> StructArray{ComplexF32}((a, b))
 julia> c = CuArray(rand(ComplexF32, 10));
 
 julia> StructArray(c)
-10-element StructArray(::Array{Float32,1}, ::Array{Float32,1}) with eltype Complex{Float32}:
+10-element StructArray(::Vector{Float32}, ::Vector{Float32}) with eltype Complex{Float32}:
   0.7176411f0 + 0.864058f0im
    0.252609f0 + 0.14824867f0im
  0.26842773f0 + 0.9084332f0im
@@ -128,7 +128,7 @@ If you already have your data in a `StructArray` with field arrays of a given fo
 
 ```julia-repl
 julia> s = StructArray([1.0+im, 2.0-im])
-2-element StructArray(::Array{Float64,1}, ::Array{Float64,1}) with eltype Complex{Float64}:
+2-element StructArray(::Vector{Float64}, ::Vector{Float64}) with eltype Complex{Float64}:
  1.0 + 1.0im
  2.0 - 1.0im
 
@@ -152,7 +152,7 @@ julia> LazyRow(t, 2).a = 123
 123
 
 julia> t
-2-element StructArray(::Array{Int64,1}, ::Array{String,1}) with eltype NamedTuple{(:a, :b),Tuple{Int64,String}}:
+2-element StructArray(::Vector{Int64}, ::Vector{String}) with eltype NamedTuple{(:a, :b),Tuple{Int64,String}}:
  (a = 1, b = "x")
  (a = 123, b = "y")
 ```
@@ -161,7 +161,7 @@ To iterate in a lazy way one can simply iterate `LazyRows`:
 
 ```julia-repl
 julia> map(t -> t.b ^ t.a, LazyRows(t))
-2-element Array{String,1}:
+2-element Vector{String}:
  "x"
  "yy"
 ```

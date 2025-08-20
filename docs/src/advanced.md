@@ -68,11 +68,11 @@ StructArrays provides a function `StructArrays.append!!(dest, src)` (unexported)
 
 ```julia-repl
 julia> dest = StructVector((a=[1], b=[2]))
-1-element StructArray(::Array{Int64,1}, ::Array{Int64,1}) with eltype NamedTuple{(:a, :b),Tuple{Int64,Int64}}:
+1-element StructArray(::Vector{Int64}, ::Vector{Int64}) with eltype NamedTuple{(:a, :b),Tuple{Int64,Int64}}:
  (a = 1, b = 2)
 
 julia> StructArrays.append!!(dest, [(a = 3, b = 4)])
-2-element StructArray(::Array{Int64,1}, ::Array{Int64,1}) with eltype NamedTuple{(:a, :b),Tuple{Int64,Int64}}:
+2-element StructArray(::Vector{Int64}, ::Vector{Int64}) with eltype NamedTuple{(:a, :b),Tuple{Int64,Int64}}:
  (a = 1, b = 2)
  (a = 3, b = 4)
 
@@ -84,7 +84,7 @@ Unlike `append!`, `append!!` can also _widen_ element type of `dest` array:
 
 ```julia-repl
 julia> StructArrays.append!!(dest, [(a = missing, b = 6)])
-3-element StructArray(::Array{Union{Missing, Int64},1}, ::Array{Int64,1}) with eltype NamedTuple{(:a, :b),Tuple{Union{Missing, Int64},Int64}}:
+3-element StructArray(::Vector{Union{Missing, Int64}}, ::Vector{Int64}) with eltype NamedTuple{(:a, :b),Tuple{Union{Missing, Int64},Int64}}:
  NamedTuple{(:a, :b),Tuple{Union{Missing, Int64},Int64}}((1, 2))
  NamedTuple{(:a, :b),Tuple{Union{Missing, Int64},Int64}}((3, 4))
  NamedTuple{(:a, :b),Tuple{Union{Missing, Int64},Int64}}((missing, 6))

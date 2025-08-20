@@ -20,7 +20,7 @@ julia> LazyRow(t, 2).a = 123
 123
 
 julia> t
-2-element StructArray(::Array{Int64,1}, ::Array{String,1}) with eltype NamedTuple{(:a, :b),Tuple{Int64,String}}:
+2-element StructArray(::Vector{Int64}, ::Vector{String}) with eltype NamedTuple{(:a, :b),Tuple{Int64,String}}:
  (a = 1, b = "x")
  (a = 123, b = "y")
 ```
@@ -68,7 +68,7 @@ An iterator of [`LazyRow`](@ref)s of `s`.
 
 ```julia-repl
 julia> map(t -> t.b ^ t.a, LazyRows(t))
-2-element Array{String,1}:
+2-element Vector{String}:
  "x"
  "yy"
 ```
