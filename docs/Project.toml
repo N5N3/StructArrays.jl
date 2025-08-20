@@ -10,3 +10,4 @@ StructArrays = {path = ".."}
 [compat]
 Documenter = "0.27"
 PooledArrays = "1"
+StaticArrays = "1"
