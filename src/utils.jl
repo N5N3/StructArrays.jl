@@ -194,9 +194,9 @@ maybe_convert_elt(::Type{T}, vals::Tuple) where T = T <: Tuple ? convert(T, vals
 maybe_convert_elt(::Type{T}, vals::NamedTuple) where T = T<:NamedTuple ? convert(T, vals) : vals # assignment of fields by name
 
 """
-    findconsistentvalue(f, componenents::Union{Tuple, NamedTuple})
+    findconsistentvalue(f, components::Union{Tuple, NamedTuple})
 
-Compute the unique value that `f` takes on each `component ∈ componenents`.
+Compute the unique value that `f` takes on each `component ∈ components`.
 If not all values are equal, return `nothing`. Otherwise, return the unique value.
 """
 function findconsistentvalue(f::F, cols::Tup) where F

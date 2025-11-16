@@ -2,9 +2,9 @@
 
 ## Structures with non-standard data layout
 
-StructArrays support structures with custom data layout. The user is required to overload `staticschema` in order to define the custom layout, `component` to access fields of the custom layout, and `createinstance(T, fields...)` to create an instance of type `T` from its custom fields `fields`. In other word, given `x::T`, `createinstance(T, (component(x, f) for f in fieldnames(staticschema(T)))...)` should successfully return an instance of type `T`.
+StructArrays supports structures with custom data layout. The user is required to overload `staticschema` in order to define the custom layout, `component` to access fields of the custom layout, and `createinstance(T, fields...)` to create an instance of type `T` from its custom fields `fields`. In other words, given `x::T`, `createinstance(T, (component(x, f) for f in fieldnames(staticschema(T)))...)` should successfully return an instance of type `T`.
 
-Here is an example of a type `MyType` that has as custom fields either its field `data` or fields of its field `rest` (which is a named tuple):
+Here is an example of a type `MyType` that has custom fields that are either its `data` field or the fields of its `rest` field (which is a `NamedTuple`):
 
 ```@repl advanced1
 using StructArrays

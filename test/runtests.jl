@@ -1246,7 +1246,7 @@ end
 #     We use them to simulate `BroadcastStyle` overloading `Base.copyto!`.
 # 2. `MyArray3` has no `similar` defined.
 #    We use it to simulate `BroadcastStyle` overloading `Base.copy`.
-# 3. Their resolved style could be summaryized as (`-` means conflict)
+# 3. Their resolved style could be summarized as (`-` means conflict)
 #              |  MyArray1  |  MyArray2  |  MyArray3  |  Array
 #    -------------------------------------------------------------
 #    MyArray1  |  MyArray1  |      -     |  MyArray1  |  MyArray1
