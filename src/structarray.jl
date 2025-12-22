@@ -55,12 +55,12 @@ specified field arrays.
 
 ```julia-repl
 julia> StructArray{ComplexF64}(([1.0, 2.0], [3.0, 4.0]))
-2-element StructArray(::Array{Float64,1}, ::Array{Float64,1}) with eltype Complex{Float64}:
+2-element StructArray(::Vector{Float64}, ::Vector{Float64}) with eltype Complex{Float64}:
  1.0 + 3.0im
  2.0 + 4.0im
 
 julia> StructArray{ComplexF64}(re=[1.0, 2.0], im=[3.0, 4.0])
-2-element StructArray(::Array{Float64,1}, ::Array{Float64,1}) with eltype Complex{Float64}:
+2-element StructArray(::Vector{Float64}, ::Vector{Float64}) with eltype Complex{Float64}:
  1.0 + 3.0im
  2.0 + 4.0im
 ```
@@ -68,7 +68,7 @@ julia> StructArray{ComplexF64}(re=[1.0, 2.0], im=[3.0, 4.0])
 Any `AbstractArray` can be used as a field array
 ```julia-repl
 julia> StructArray{Complex{Int64}}(([1, 2], 3:4))
-2-element StructArray(::Array{Int64,1}, ::UnitRange{Int64}) with eltype Complex{Int64}:
+2-element StructArray(::Vector{Int64}, ::UnitRange{Int64}) with eltype Complex{Int64}:
  1 + 3im
  2 + 4im
 ```
@@ -76,12 +76,12 @@ julia> StructArray{Complex{Int64}}(([1, 2], 3:4))
 If no element type `T` is provided, a `Tuple` or `NamedTuple` is used:
 ```julia-repl
 julia> StructArray((zeros(2,2), ones(2,2)))
-2×2 StructArray(::Array{Float64,2}, ::Array{Float64,2}) with eltype Tuple{Float64,Float64}:
+2×2 StructArray(::Matrix{Float64}, ::Matrix{Float64}) with eltype Tuple{Float64,Float64}:
  (0.0, 1.0)  (0.0, 1.0)
  (0.0, 1.0)  (0.0, 1.0)
 
 julia> StructArray(a=zeros(2,2), b=ones(2,2))
-2×2 StructArray(::Array{Float64,2}, ::Array{Float64,2}) with eltype NamedTuple{(:a, :b),Tuple{Float64,Float64}}:
+2×2 StructArray(::Matrix{Float64}, ::Matrix{Float64}) with eltype NamedTuple{(:a, :b),Tuple{Float64,Float64}}:
  (a = 0.0, b = 1.0)  (a = 0.0, b = 1.0)
  (a = 0.0, b = 1.0)  (a = 0.0, b = 1.0)
 ```
@@ -120,25 +120,25 @@ recursively convert fields of type `FT` to `StructArray`s.
 
 ```julia-repl
 julia> X = [1.0 2.0; 3.0 4.0]
-2×2 Array{Float64,2}:
+2×2 Matrix{Float64}:
  1.0  2.0
  3.0  4.0
 
 julia> StructArray{Complex{Float64}}(X; dims=1)
-2-element StructArray(view(::Array{Float64,2}, 1, :), view(::Array{Float64,2}, 2, :)) with eltype Complex{Float64}:
+2-element StructArray(view(::Matrix{Float64}, 1, :), view(::Matrix{Float64}, 2, :)) with eltype Complex{Float64}:
  1.0 + 3.0im
  2.0 + 4.0im
 
 julia> StructArray{Complex{Float64}}(X; dims=2)
-2-element StructArray(view(::Array{Float64,2}, :, 1), view(::Array{Float64,2}, :, 2)) with eltype Complex{Float64}:
+2-element StructArray(view(::Matrix{Float64}, :, 1), view(::Matrix{Float64}, :, 2)) with eltype Complex{Float64}:
  1.0 + 2.0im
  3.0 + 4.0im
 ```
 
 By default, fields will be unwrapped until they match the element type of the array:
-```
+```julia-repl
 julia> StructArray{Tuple{Float64,Complex{Float64}}}(rand(3,2); dims=1)
-2-element StructArray(view(::Array{Float64,2}, 1, :), StructArray(view(::Array{Float64,2}, 2, :), view(::Array{Float64,2}, 3, :))) with eltype Tuple{Float64,Complex{Float64}}:
+2-element StructArray(view(::Matrix{Float64}, 1, :), StructArray(view(::Matrix{Float64}, 2, :), view(::Matrix{Float64}, 3, :))) with eltype Tuple{Float64,Complex{Float64}}:
  (0.004767505234193781, 0.27949621887414566 + 0.9039320635041561im)
  (0.41853472213051335, 0.5760165160827859 + 0.9782723869433818im)
 ```
@@ -195,7 +195,7 @@ recursively convert arrays of element type `T` to `StructArray`s.
 
 ```julia-repl
 julia> StructArray{ComplexF64}(undef, (2,3))
-2×3 StructArray(::Array{Float64,2}, ::Array{Float64,2}) with eltype Complex{Float64}:
+2×3 StructArray(::Matrix{Float64}, ::Matrix{Float64}) with eltype Complex{Float64}:
   2.3166e-314+2.38405e-314im  2.39849e-314+2.38405e-314im  2.41529e-314+2.38405e-314im
  2.31596e-314+2.41529e-314im  2.31596e-314+2.41529e-314im  2.31596e-314+NaN*im
 ```
@@ -222,12 +222,12 @@ recursively convert arrays of element type `T` to `StructArray`s.
 
 ```julia-repl
 julia> A = rand(ComplexF32, 2,2)
-2×2 Array{Complex{Float32},2}:
+2×2 Matrix{Complex{Float32}}:
  0.694399+0.94999im  0.422804+0.891131im
  0.101001+0.33644im  0.632468+0.811319im
 
 julia> StructArray(A)
-2×2 StructArray(::Array{Float32,2}, ::Array{Float32,2}) with eltype Complex{Float32}:
+2×2 StructArray(::Matrix{Float32}, ::Matrix{Float32}) with eltype Complex{Float32}:
  0.694399+0.94999im  0.422804+0.891131im
  0.101001+0.33644im  0.632468+0.811319im
 ```
@@ -236,7 +236,7 @@ julia> StructArray(A)
 
 ```julia-repl
 julia> StructArray((1, Complex(i, j)) for i = 1:3, j = 2:4)
-3×3 StructArray(::Array{Int64,2}, ::Array{Complex{Int64},2}) with eltype Tuple{Int64,Complex{Int64}}:
+3×3 StructArray(::Matrix{Int64}, ::Matrix{Complex{Int64}}) with eltype Tuple{Int64,Complex{Int64}}:
  (1, 1+2im)  (1, 1+3im)  (1, 1+4im)
  (1, 2+2im)  (1, 2+3im)  (1, 2+4im)
  (1, 3+2im)  (1, 3+3im)  (1, 3+4im)
@@ -246,7 +246,7 @@ julia> StructArray((1, Complex(i, j)) for i = 1:3, j = 2:4)
 
 ```julia-repl
 julia> StructArray((1, Complex(i, j)) for i = 1:3, j = 2:4; unwrap = T -> !(T<:Real))
-3×3 StructArray(::Array{Int64,2}, StructArray(::Array{Int64,2}, ::Array{Int64,2})) with eltype Tuple{Int64,Complex{Int64}}:
+3×3 StructArray(::Matrix{Int64}, StructArray(::Matrix{Int64}, ::Matrix{Int64})) with eltype Tuple{Int64,Complex{Int64}}:
  (1, 1+2im)  (1, 1+3im)  (1, 1+4im)
  (1, 2+2im)  (1, 2+3im)  (1, 2+4im)
  (1, 3+2im)  (1, 3+3im)  (1, 3+4im)
@@ -532,9 +532,9 @@ BroadcastStyle(::Type{SA}) where {SA<:StructArray} = StructArrayStyle{typeof(cst
     always_struct_broadcast(style::BroadcastStyle)
 
 Check if `style` supports struct-broadcast natively, which means:
-1) `Base.copy` is not overloaded.
-2) `Base.similar` is defined.
-3) `Base.copyto!` supports `StructArray`s as broadcasted arguments.
+1. `Base.copy` is not overloaded.
+2. `Base.similar` is defined.
+3. `Base.copyto!` supports `StructArray`s as broadcasted arguments.
 
 If any of the above conditions are not met, then this function should
 not be overloaded.

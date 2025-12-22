@@ -19,7 +19,7 @@ this will have fields with the same names and types as `T`.
 This can be overloaded for custom types if required, in which case
 [`StructArrays.component`](@ref) and [`StructArrays.createinstance`](@ref)
 should also be defined.
-    
+
 ```julia-repl
 julia> StructArrays.staticschema(Complex{Float64})
 NamedTuple{(:re, :im),Tuple{Float64,Float64}}

@@ -1,5 +1,3 @@
-push!(LOAD_PATH, dirname(@__DIR__))
-
 using Documenter
 using StructArrays
 
@@ -13,7 +11,8 @@ makedocs(
             "Some counterintuitive behaviors"=>"counterintuitive.md",
             "Advanced techniques"=>"advanced.md",
             "Index"=>"reference.md",
-            ]
+            ],
+    warnonly = [:missing_docs],
 )
 
 # Documenter can also automatically deploy documentation to gh-pages.

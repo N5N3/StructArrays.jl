@@ -1,3 +1,6 @@
+```@meta
+DocTestSetup = :(using StructArrays)
+```
 # Some counterintuitive behaviors
 
 When created from parent arrays representing each field of the final `struct`, StructArrays creates a "view" which
@@ -13,7 +16,7 @@ These issues are elucidated below.
 
 For this demonstration, throughout we'll use this mutable struct:
 
-```jldoctest counter1; setup=:(using StructArrays)
+```jldoctest counter1
 julia> mutable struct Foo{T}
            a::T
            b::T
@@ -181,7 +184,7 @@ None of the changes to `soa` "propagated" to `aos`. This is because a StructArra
 ## Broadcasted assignment for array entries
 
 Broadcasted in-place assignment can also behave counterintuitively for StructArrays.
-```jldoctest; setup=:(using StructArrays)
+```jldoctest
 julia> using StaticArrays   # for FieldVector
 
 julia> mutable struct Bar{T} <: FieldVector{2,T}
