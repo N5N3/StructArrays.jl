@@ -67,7 +67,7 @@ julia> aos = [1+2im, 3+4im]
  3 + 4im
 
 julia> aos.re     # Vectors do not have fields, so this is an error
-ERROR: FieldError: type Array has no field `re`, available fields: `ref`, `size`
+ERROR: type Array has no field re
 [...]
 
 julia> soa = StructArray(aos)
