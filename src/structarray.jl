@@ -442,6 +442,7 @@ end
 
 function Base.empty!(s::StructArray)
     foreachfield(empty!, s)
+    return s
 end
 
 function Base.sizehint!(s::StructArray, i::Integer)

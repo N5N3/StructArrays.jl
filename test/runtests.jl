@@ -436,7 +436,7 @@ end
 
 @testset "empty" begin
     s = StructVector(a = [1, 2, 3], b = ["a", "b", "c"])
-    empty!(s)
+    @test empty!(s) === s
     @test isempty(s.a)
     @test isempty(s.b)
 end
